@@ -59,7 +59,7 @@ public class InventoryImplementation implements InventoryManagement{
 			throw new NotFoundException();
 		}
 		boolean ispresent=false;
-		for(int i=0;i<list.size();i++)
+		for(int i=1;i<list.size();i++)
 		{
 			if(list.get(i).getPid()==pid)
 			{
@@ -68,7 +68,7 @@ public class InventoryImplementation implements InventoryManagement{
 			
 			if(ispresent==true)
 			{
-				for(int j=0;j<list.size();j++)
+				for(int j=1;j<list.size();j++)
 				{
 					if(list.get(i).getPid()==pid)
 					{
@@ -154,7 +154,9 @@ public class InventoryImplementation implements InventoryManagement{
 			{
 				if(list.get(j).getPname().equalsIgnoreCase(pname))
 				{
-					System.out.println("The Product name is: "+pname);
+					System.out.println("The Product name is: "+pname+"= "+list.get(j).getPid()+
+							" "+list.get(j).getPname()+" "+list.get(j).getCat().getCid()+
+							" "+list.get(j).getCat().getCname()+" "+list.get(j).getPrice());
 				}
 			}
 		}
@@ -181,10 +183,6 @@ public class InventoryImplementation implements InventoryManagement{
 		{
 			System.out.println(n.getLocalizedMessage());
 		}
-		finally
-		{
-			System.out.println("Product Name is not Found");
-		}
 		for(int i=0;i<list.size();i++)
 		{
 			System.out.println("Product Details: "+list.get(i).getPid()+
@@ -206,7 +204,7 @@ public class InventoryImplementation implements InventoryManagement{
 			throw new NotFoundException();
 		}
 		boolean ispresent=false;
-		for(int i=0;i<list.size();i++)
+		for(int i=1;i<list.size();i++)
 		{
 			if(list.get(i).getCat().getCname().equalsIgnoreCase(cname))
 			{
@@ -217,11 +215,13 @@ public class InventoryImplementation implements InventoryManagement{
 		}
 		if(ispresent==false)
 		{
-			for(int j=0;j<list.size();j++)
+			for(int j=1;j<list.size();j++)
 			{
 				if(list.get(j).getCat().getCname().equalsIgnoreCase(cname))
 				{
-					System.out.println("The Category of Product is: "+cname);
+					System.out.println("The Category of Product is: "+cname+" "+list.get(j).getPid()+
+							" "+list.get(j).getPname()+" "+list.get(j).getCat().getCid()+
+							" "+list.get(j).getCat().getCname()+" "+list.get(j).getPrice());
 				}
 			}
 		}
