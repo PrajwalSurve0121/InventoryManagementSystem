@@ -8,6 +8,7 @@ public interface InventoryManagement {
 	public String searchProduct(String pname);
 	public void displayProduct();
 	public String searchByCategory(String cname);
-	public int displaytotalValue(int pri,int pid);
+	public int displaytotalValue(int pid);
+	public void GrandTotal();
 
 }

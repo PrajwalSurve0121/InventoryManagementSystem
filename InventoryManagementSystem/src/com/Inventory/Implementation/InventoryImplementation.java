@@ -15,6 +15,7 @@ public class InventoryImplementation implements InventoryManagement{
 	Scanner sc=new Scanner(System.in);
 
 	ArrayList<Product>list=new ArrayList<>();
+	ArrayList<InventoryItem>list2=new ArrayList<>();
 	@Override
 	public Product addProduct(Product pr) {
 		// TODO Auto-generated method stub
@@ -38,10 +39,12 @@ public class InventoryImplementation implements InventoryManagement{
 			String cname=sc.next();
 			System.out.println("Enter Price of product:");
 			int price=sc.nextInt();
+			
 			Product p=new Product(pid,pname,new Category(cid,cname),price);
+			
 			InventoryItem z=new InventoryItem(p,quan);
 			list.add(p);
-			
+			list2.add(z);
 		}
 		
 		return pr;
@@ -59,28 +62,30 @@ public class InventoryImplementation implements InventoryManagement{
 			throw new NotFoundException();
 		}
 		boolean ispresent=false;
-		for(int i=1;i<list.size();i++)
+		for(int i=0;i<list.size();i++)
 		{
 			if(list.get(i).getPid()==pid)
 			{
 				ispresent=true;
+				break;
 			}
 			
-			if(ispresent==true)
+			
+		}
+		if(ispresent==true)
+		{
+			for(int j=0;j<list.size();j++)
 			{
-				for(int j=1;j<list.size();j++)
+				if(list.get(j).getPid()==pid)
 				{
-					if(list.get(i).getPid()==pid)
-					{
-						list.remove(j);
-						System.out.println("Removed Sucessfully");
-					}
+					list.remove(j);
+					System.out.println("Removed Sucessfully");
 				}
 			}
-			else
-			{
-				throw new NotFoundException();
-			}
+		}
+		else
+		{
+			throw new NotFoundException();
 		}
 		
 		return pid;
@@ -97,35 +102,23 @@ public class InventoryImplementation implements InventoryManagement{
 		{
 			throw new NotFoundException();
 		}
-		boolean ispresent=false;
+		
+		
 		for(int i=0;i<list.size();i++)
 		{
 			if(list.get(i).getPid()==pid)
 			{
-				ispresent=true;
-				break;
-			}
-		}
-		System.out.println("Enter new product price: ");
-		int pri=sc.nextInt();
-		if(ispresent==true)
-		{
-			for(int j=0;j<list.size();j++)
-			{
-				if(list.get(j).getPid()==pid)
-				{
-//					int temp=list.get(j).getPrice();
-					list.set(list.get(j).getPrice(), list.get(pri));
-					
-				}
-				System.out.println(list.get(pri));
+				System.out.println("Enter new product price: ");
+				
+				
+				int pri=sc.nextInt();
+				Product p=new Product(list.get(i).getPid(),list.get(i).getPname(),list.get(i).getCat(),pri);
+				list.set(i, p);
+				
 			}
 		}
 		
-		
-		
-		
-		return pri;
+		return pid;
 	}
 
 
@@ -139,16 +132,16 @@ public class InventoryImplementation implements InventoryManagement{
 		{
 			throw new NotFoundException(); 
 		}
-		boolean pnamepresent=false;
+		boolean pNamePresent=false;
 		for(int i=0;i<list.size();i++)
 		{
 			if(list.get(i).getPname().equalsIgnoreCase(pname))
 			{
-				pnamepresent=true;
+				pNamePresent=true;
 				break;
 			}
 		}
-		if(pnamepresent==true)
+		if(pNamePresent==true)
 		{
 			for(int j=0;j<list.size();j++)
 			{
@@ -235,36 +228,43 @@ public class InventoryImplementation implements InventoryManagement{
 
 
 	@Override
-	public int displaytotalValue(int pr,int pid) {
+	public int displaytotalValue(int pid) {
 		// TODO Auto-generated method stub
-		pr=sc.nextInt();
+//		int pr=sc.nextInt();
+		System.out.println("Enter Product ID For check: ");
 		pid=sc.nextInt();
 		int total=0;
 		if(list.isEmpty())
 		{
 			throw new NotFoundException();
 		}
-		boolean ispresent=false;
-		for(int i=0;i<list.size();i++)
+		int i;
+		boolean isPresent=false;
+		for(i=0;i<list.size();i++)
 		{
 			if(list.get(i).getPid()==pid)
 			{
-				ispresent=true;
+				isPresent=true;
 				break;
 			}
 		}
-		if(ispresent==true)
+		if(isPresent==true)
 		{
-			for(int j=0;j<list.size();j++)
-			{
-				if(list.get(j).getPid()==pid)
-				{
-					total=total+list.get(j).getPrice()*in.getQuantity();
-				}
-			}
+			total=total+list.get(i).getPrice()*list2.get(i).getQuantity();
 		}
 		return total;
 		
+	}
+	
+	@Override
+	public void GrandTotal()
+	{
+		int GreanTotal=0;
+		for(int i=0;i<list2.size();i++)
+		{
+			GreanTotal=GreanTotal+list2.get(i).getQuantity()*list2.get(i).getPr().getPrice();
+		}
+		System.out.println("Grand Total is: "+GreanTotal);
 	}
 	
 }

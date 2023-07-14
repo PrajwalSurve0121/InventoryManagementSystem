@@ -59,12 +59,16 @@ public class InventoryController {
 		}
 		break;
 		case 7: try {
-			inv.displaytotalValue(option, option);
+			
+			System.out.println(inv.displaytotalValue(option));
+			
 		}
 		catch(NotFoundException x)
 		{
 			x.getLocalizedMessage();
 		}
+		break;
+		case 8: inv.GrandTotal();
 		break;
 		default :System.out.println("Invalid Choice");
 		
